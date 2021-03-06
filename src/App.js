@@ -34,11 +34,32 @@ function App() {
   }
   
   const handleIncrease = e => {
-    e.target.parentElement.className === 'NumberArrowContainerBreak' ? setBreakLength(breakLength + 1) : setSessionLength(sessionLength + 1);
+    let targetClassName = e.target.parentElement.className;
+    
+    if(targetClassName === 'NumberArrowContainerBreak' && timeIsValid(breakLength, "break", "up")) {
+      setBreakLength(breakLength + 1);
+    } else if (targetClassName === 'NumberArrowContainerSession' && timeIsValid(sessionLength, "session", "up")){
+      let newSession = sessionLength + 1;
+      setSessionLength(newSession);
+      if (!intervalDidStart) {
+        setTimeRemaining(newSession * 60);
+      }
+    }
   }
   
   const handleDecrease = e => {
-    e.target.parentElement.className === 'NumberArrowContainerBreak' ? setBreakLength(breakLength - 1) : setSessionLength(sessionLength - 1);
+    let targetClassName = e.target.parentElement.className;
+    
+    if(targetClassName === 'NumberArrowContainerBreak' && timeIsValid(breakLength, "break", "down")) {
+      setBreakLength(breakLength - 1);
+    } else if (targetClassName === 'NumberArrowContainerSession' && timeIsValid(sessionLength, "session", "down")){
+      console.log('hit');
+      let newSession = sessionLength - 1;
+      setSessionLength(newSession);
+      if (!intervalDidStart) {
+        setTimeRemaining(newSession*60);
+      }
+    }
   }
   
   const handleRestart = () => {
@@ -63,7 +84,28 @@ function App() {
     }
   }
   
+  const timeIsValid = (time, type, action) => {
+    let lowerLimit = 1;
+    let upperLimit = 20;
+    
+    if (type === "session") {
+      upperLimit = 60;
+      lowerLimit = 1;
+    }
 
+    if (action === "up" && time < upperLimit) {
+      console.log('1');
+      return true;
+    } else if (action === "down" && time > lowerLimit) {
+      console.log('2');
+      return true;
+    } else {
+      console.log(time, type, action);
+      console.log('3');
+      return false;
+    }
+
+}
 
   return (
     <div className="App">
