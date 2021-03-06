@@ -1,12 +1,11 @@
-import React from 'react'
+import React from 'react';
+import { Button } from 'react-bootstrap';
 
 const Actions = (props) => {
-  
   return (
     <div className="Actions">
-        <button onClick={props.play}>play</button>
-        <button onClick={props.pause}>pause</button>
-        <button>restart</button>
+        <Button onClick={props.playPause} variant="light">{(props.isActive === true ? 'pause' : props.didStart === true ? 'resume' : 'play')}</Button>
+        <Button onClick={props.restart} variant="dark">restart</Button>
     </div>
   )
 }
