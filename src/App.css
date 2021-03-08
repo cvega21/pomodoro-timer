@@ -80,6 +80,14 @@
   align-items: center;
   width: 40vw;
   height: fit-content;
+  position: relative;
+}
+
+.ActiveBreakFlag {
+  position: absolute;
+  top: 20px;
+  font-weight: 100px;
+  color: white;
 }
 
 .ClockTime {
